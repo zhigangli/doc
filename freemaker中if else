@@ -1,0 +1,72 @@
+概要
+<#if condition>
+  ...
+<#elseif condition2>
+  ...
+<#elseif condition3>
+  ...
+...
+<#else>
+  ...
+</#if>
+这里：
+
+condition, condition2， 等：将被计算成布尔值的表达式。
+elseif 和 else 是可选的。
+
+描述
+你可以使用 if， elseif 和 else 指令来条件判断是否越过模板的一个部分。 condition 必须计算成布尔值， 否则错误将会中止模板处理。elseif 和 else 必须出现在 if 内部 (也就是，在 if 的开始标签和结束标签之间)。 if 中可以包含任意数量的 elseif(包括0个) 而且结束时 else 是可选的。比如：
+
+只有 if 没有 elseif 和 else：
+
+<#if x == 1>
+  x is 1
+</#if>
+只有 if 没有 elseif 但是有 else：
+
+<#if x == 1>
+  x is 1
+<#else>
+  x is not 1
+</#if>
+有 if 和两个 elseif 但是没有 else：
+
+<#if x == 1>
+  x is 1
+<#elseif x == 2>
+  x is 2
+<#elseif x == 3>
+  x is 3
+</#if>
+有 if 和三个 elseif 还有 else:
+
+<#if x == 1>
+  x is 1
+<#elseif x == 2>
+  x is 2
+<#elseif x == 3>
+  x is 3
+<#elseif x == 4>
+  x is 4
+<#else>
+  x is not 1 nor 2 nor 3 nor 4
+</#if>
+要了解更多布尔表达式，可以参考：模板开发指南/模板/表达式.
+
+你(当然)也可以嵌套 if 指令：
+
+<#if x == 1>
+  x is 1
+  <#if y == 1>
+    and y is 1 too
+  <#else>
+    but y is not
+  </#if>
+<#else>
+  x is not 1
+  <#if y < 0>
+    and y is less than 0
+  </#if>
+</#if>
+Note:
+当你想测试是否 x > 0 或 x >= 0，编写 <#if x > 0> 和 <#if x >= 0> 是错误的， 因为第一个 > 会结束 #if 标签。要这么来做，可以编写 <#if x gt 0> 或 <#if gte 0>。也请注意，如果比较发生在括号内部，那么就没有这样的问题， 比如 <#if foo.bar(x > 0)> 就会得到想要的结果。
